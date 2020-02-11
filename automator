@@ -1,0 +1,29 @@
+on searchReplace(theText, SearchString, ReplaceString)
+    set OldDelims to AppleScript's text item delimiters
+    set AppleScript's text item delimiters to SearchString
+    set newText to text items of theText
+    set AppleScript's text item delimiters to ReplaceString
+    set newText to newText as text
+    set AppleScript's text item delimiters to OldDelims
+    return newText
+end searchReplace
+on run {input, parameters}
+    set myClip to the input
+    set mytext to searchReplace(myClip, "<", "")
+    set mytext to searchReplace(mytext, ">.", "")
+    set mytext to searchReplace(mytext, ">", "")
+    set mytext to searchReplace(mytext, "smb://", "")
+    set mytext to searchReplace(mytext, "10.9.8.25/data", "V:")
+    set mytext to searchReplace(mytext, "carl/Projekty", "K:")
+    set mytext to searchReplace(mytext, "carl.at.lan/Projekty", "K:")
+    set mytext to searchReplace(mytext, "atenaat.lan/SSD", "L:")
+    set mytext to searchReplace(mytext, "atena/SSD", "L:")
+    set mytext to searchReplace(mytext, "atena.at.lan/HDD", "M:")
+    set mytext to searchReplace(mytext, "atena/HDD", "M:")
+    set mytext to searchReplace(mytext, "atena.at.lan/Temp", "M:")
+    set mytext to searchReplace(mytext, "atena/Temp", "M:")
+    set findIt to "/"
+    set replaceIt to "\\"
+    set mylocation to searchReplace(mytext, findIt, replaceIt)
+    return mylocation
+end run
